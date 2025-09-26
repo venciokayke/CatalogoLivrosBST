@@ -15,37 +15,31 @@ public class CatalogoLivros {
         System.out.println("Para inserir um livro, informe o ID, título e autor.");
         System.out.println("Para buscar um livro, informe o ID do livro.");
 
-        // 1. Torto arado, Itamar vieira junior
-        // 2. O avesso da pele, Jeferson Tenório
-        // 3. Lord Jim, Joseph Conrad
-        // 4. A verdade e outras mentiras, Sasha Arang
-        // 5. O homem que sabia demais, Gilbert Keith Chesterton
-        // 6. O sol é para todos, Harper Lee
-        // 7. 1984, George Orwell
-
         while (true) {
             System.out.println("\n------------------Escolha a operação------------------");
             System.out.println("1. Inserir livro");
-            System.out.println("2. Buscar livro por ID");
-            System.out.println("3. Listar livros em ordem");
-            System.out.println("4. Listar livros em pré-ordem");
-            System.out.println("5. Listar livros em pós-ordem");
-            System.out.println("6. Listar livros em largura");
-            System.out.println("7. Remover livro por ID");
-            System.out.println("8. Sair");
+            System.out.println("2. Inserir livros automaticamente (testes)");
+            System.out.println("3. Buscar livro por ID");
+            System.out.println("4. Listar livros em ordem");
+            System.out.println("5. Listar livros em pré-ordem");
+            System.out.println("6. Listar livros em pós-ordem");
+            System.out.println("7. Listar livros em largura");
+            System.out.println("8. Remover livro por ID");
+            System.out.println("9. Sair");
 
             System.out.print("Digite sua escolha: ");
             int escolha = scanner.nextInt();
             scanner.nextLine(); // consumir quebra de linha
-                
+
             switch (escolha) {
                 case 1 -> {
-                    
+
+                    System.out.println("------------------------------------------------------");
                     int n = -1;
 
-                    while (true) { 
+                    while (true) {
                         System.out.print("Informe a quantidade de livros para inserir: ");
-                        
+
                         if (scanner.hasNextInt()){
                             n = scanner.nextInt();
                             scanner.nextLine();
@@ -55,7 +49,7 @@ public class CatalogoLivros {
                             scanner.nextLine(); // consumir entrada inválida
                         }
                     }
-                    
+
 
                     for (int i = 0; i < n; i++) {
                         while (true) {
@@ -87,68 +81,80 @@ public class CatalogoLivros {
                         }
                     }
                 }
-               
+
                 case 2 -> {
-                    
+                    System.out.println("------------------------------------------------------");
+                    System.out.println("Inserindo livros automaticamente...");
+                    arvore.inserirLivrosAuto();
+                }
+
+                case 3 -> {
+                    System.out.println("------------------------------------------------------");
                     while (true) {
                         int idBusca = -1;
                         System.out.print("Informe o ID do livro a ser buscado: ");
                         if (scanner.hasNextInt()) {
                             idBusca = scanner.nextInt();
-                                scanner.nextLine();
-                            } else {
-                                System.out.println("ID inválido, deve ser um número inteiro positivo! Tente novamente.");
-                                System.out.println("Caso queira sair, digite 0.");
-                                scanner.nextLine(); // consumir entrada inválida
-                                continue;
-                            }
-                        
-                            Livro livroEncontrado = arvore.buscar(idBusca);
+                            scanner.nextLine();
+                        } else {
+                            System.out.println("ID inválido, deve ser um número inteiro positivo! Tente novamente.");
+                            System.out.println("Caso queira sair, digite 0.");
+                            scanner.nextLine(); // consumir entrada inválida
+                            continue;
+                        }
+
+                        Livro livroEncontrado = arvore.buscar(idBusca);
 
                         if (livroEncontrado != null) {
                             System.out.println("Livro encontrado: " + livroEncontrado.getTitulo() + " de " + livroEncontrado.getAutor());
-                                break;
-                            } else {
-                                System.out.println("Livro não encontrado.");
-                            }
+                            break;
+                        } else {
+                            System.out.println("Livro não encontrado.");
+                        }
                     }
                 }
-               
-                case 3 -> {
+
+                case 4 -> {
+                    System.out.println("------------------------------------------------------");
                     System.out.println("Livros em ordem:");
                     arvore.emOrdem();
                 }
-                
-                case 4 -> {
+
+                case 5 -> {
+                    System.out.println("------------------------------------------------------");
                     System.out.println("Livros em pré-ordem:");
                     arvore.preOrdem();
                 }
-                
-                case 5 -> {
+
+                case 6 -> {
+                    System.out.println("------------------------------------------------------");
                     System.out.println("Livros em pós-ordem:");
                     arvore.posOrdem();
                 }
-                
-                case 6 -> {
+
+                case 7 -> {
+                    System.out.println("------------------------------------------------------");
                     System.out.println("Livros em largura:");
                     arvore.emLargura();
                 }
-                
-                case 7 -> {
+
+                case 8 -> {
+                    System.out.println("------------------------------------------------------");
                     System.out.print("Informe o ID do livro a ser removido: ");
                     int idRemover = scanner.nextInt();
                     scanner.nextLine();
                     arvore.remover(idRemover);
                     System.out.println("Livro removido, se existia.");
                 }
-               
-                case 8 -> {
+
+                case 9 -> {
+                    System.out.println("------------------------------------------------------");
                     System.out.println("Saindo do programa.");
                     scanner.close();
                     System.out.println("Obrigado por usar o Catálogo de Livros!");
                     return;
                 }
-               
+
                 default -> System.out.println("Opção inválida. Tente novamente.");
             }
         }

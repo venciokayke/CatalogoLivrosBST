@@ -1,33 +1,21 @@
 package org.unifan.catalogolivros.catalogo;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
-// Classe que representa uma Árvore Binária de Busca (BST) para armazenar livros
 public class BST {
     // Nó raiz da árvore
     private No raiz;
 
-    // Construtor: inicializa a árvore vazia
+
     public BST() {
         this.raiz = null;
     }
 
-    /**
-     * Insere um novo livro na árvore.
-     * Chama o método recursivo auxiliar passando a raiz atual.
-     */
+
     public void inserir(Livro livro) {
         raiz = inserirRec(raiz, livro);
     }
 
-    /**
-     * Método recursivo para inserir um livro na posição correta da árvore.
-     * - Se o nó atual for nulo, cria um novo nó com o livro.
-     * - Se o ID do livro for menor que o do nó atual, insere à esquerda.
-     * - Se maior, insere à direita.
-     * - Se igual, não insere e avisa.
-     * Sempre retorna o nó atual para manter a ligação da árvore.
-     */
+
     private No inserirRec(No raiz, Livro livro) {
         // Caso base: se o nó atual é nulo, chegou no lugar certo para inserir o novo livro
         if (raiz == null) {
@@ -55,22 +43,13 @@ public class BST {
         return raiz;
     }
 
-    /**
-     * Busca um livro pelo ID na árvore.
-     * Retorna o livro encontrado ou null se não existir.
-     */
+
     public Livro buscar(int id) {
         No noEncontrado = buscarRec(raiz, id);
         return (noEncontrado != null) ? noEncontrado.getLivro() : null;
     }
 
-    /**
-     * Busca recursiva por ID.
-     * - Se o nó atual for nulo, retorna null (não achou).
-     * - Se o ID do nó atual for igual ao procurado, retorna o nó (achou).
-     * - Se o ID procurado for menor, busca à esquerda.
-     * - Se for maior, busca à direita.
-     */
+
     private No buscarRec(No raiz, int id) {
         // Se o nó atual for nulo, ou se o ID do livro do nó atual for igual ao procurado, retorna o nó (achou ou chegou ao fim)
         if (raiz == null || raiz.getLivro().getId() == id) {
@@ -84,10 +63,7 @@ public class BST {
         return buscarRec(raiz.getDir(), id);
     }
 
-    /**
-     * Percorre a árvore em pré-ordem (raiz, esquerda, direita) e imprime os livros.
-     * Útil para visualizar a estrutura da árvore.
-     */
+
     public void preOrdem() {
         preOrdemRec(raiz);
     }
@@ -104,10 +80,7 @@ public class BST {
         }
     }
 
-    /**
-     * Percorre a árvore em pós-ordem (esquerda, direita, raiz) e imprime os livros.
-     * Útil para liberar memória ou processar filhos antes do pai.
-     */
+
     public void posOrdem() {
         posOrdemRec(raiz);
     }
@@ -124,10 +97,7 @@ public class BST {
         }
     }
 
-    /**
-     * Percorre a árvore em ordem (esquerda, raiz, direita) e imprime os livros em ordem crescente de ID.
-     * Útil para listar os livros ordenados.
-     */
+
     public void emOrdem() {
         emOrdemRec(raiz);
     }
@@ -144,10 +114,7 @@ public class BST {
         }
     }
 
-    /**
-     * Percorre a árvore em largura (nível por nível) e imprime os livros.
-     * Usa uma fila para visitar todos os nós de cada nível antes de passar para o próximo.
-     */
+
     public void emLargura() {
         if (raiz == null) return;
         // Fila para armazenar os nós a serem visitados
@@ -165,22 +132,12 @@ public class BST {
         }
     }
 
-    /**
-     * Remove um livro da árvore pelo ID.
-     * Chama o método recursivo auxiliar passando a raiz atual.
-     */
+
     public void remover(int id) {
         raiz = removerRec(raiz, id);
     }
 
-    /**
-     * Método recursivo para remover um nó da árvore.
-     * - Se não encontrar, retorna null.
-     * - Se encontrar, trata os casos:
-     *   - Sem filho: retorna null.
-     *   - Um filho: retorna o filho.
-     *   - Dois filhos: substitui pelo menor da subárvore direita.
-     */
+
     private No removerRec(No no, int id) {
         if (no == null) return null;
         // Se o ID a remover for menor, busca na esquerda
@@ -202,12 +159,52 @@ public class BST {
         return no;
     }
 
-    /**
-     * Retorna o nó com menor valor (mais à esquerda) da subárvore.
-     * Usado para encontrar o sucessor na remoção.
-     */
     private No menorNo(No no) {
         while (no.getEsq() != null) no = no.getEsq();
         return no;
+    }
+
+    public void inserirLivrosAuto(){
+
+        String[] titulos = {
+                "Torto arado", "O avesso da pele", "Lord Jim", "A verdade e outras mentiras", "O homem que sabia demais",
+                "O sol é para todos", "1984", "O Banquete", "As Viagens de Gulliver", "Os Sofrimentos do Jovem Werther",
+                "Frankenstein", "O Corcunda de Notre Dame", "Um Conto de Natal", "Histórias Extraordinárias", "Moby Dick",
+                "Madame Bovary", "As Flores do Mal", "Senhora", "O Alienista", "O Cão dos Baskervilles", "Parque Industrial",
+                "Morte no Nilo", "A Revolução dos Bichos", "A Peste", "Clara dos Anjos", "Memórias de Adriano", "Incidente em Antares",
+                "On the Road", "Crônica da Casa Assassinada", "Quarto de Despejo", "Um Homem Só", "Felicidade Clandestina",
+                "Carrie, a Estranha", "Bagagem", "Terra Sonâmbula", "O Sol na Cabeça", "Te Vejo na Final"
+        };
+
+        String[] autores = {
+                "Itamar Vieira Junior", "Jeferson Tenório", "Joseph Conrad", "Sasha Arang", "Gilbert Keith Chesterton",
+                "Harper Lee", "George Orwell", "Platão", "Jonathan Swift", "Johann Wolfgang von Goethe", "Mary Shelley",
+                "Victor Hugo", "Charles Dickens", "Edgar Allan Poe", "Herman Melville", "Gustave Flaubert",
+                "Charles Baudelaire", "José de Alencar", "Machado de Assis", "Arthur Conan Doyle", "Pagu", "Agatha Christie",
+                "George Orwell", "Albert Camus", "Lima Barreto", "Marguerite Yourcenar", "Erico Verissimo", "Jack Kerouac",
+                "Lúcio Cardoso", "Carolina Maria de Jesus", "Christopher Isherwood", "Clarice Lispector", "Stephen King",
+                "Adélia Prado", "Mia Couto", "Geovane Martins", "Ayslan Monteiro"
+        };
+
+
+
+        int totalLivros = titulos.length;
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (int i = 1; i <= totalLivros; i++) {
+            ids.add(i);
+        }
+        Collections.shuffle(ids);
+
+        for (int i = 0; i < titulos.length; i++) {
+
+
+            String autor = autores[i];
+            int id = ids.get(i);
+            String titulo = titulos[i];
+
+            inserir(new Livro(autor, id, titulo));
+        }
+        System.out.println("37 pessoas inseridas automaticamente.");
+
     }
 }
