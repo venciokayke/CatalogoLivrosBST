@@ -1,5 +1,8 @@
 package org.unifan.catalogolivros.catalogo;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BST {
     // Nó raiz da árvore
@@ -24,13 +27,13 @@ public class BST {
         // Só permite inserir IDs positivos
         if (livro.getId() > 0) {
             // Se o ID do novo livro for menor que o ID do nó atual,
-            // chama recursivamente para a subárvore da esquerda
             if (livro.getId() < raiz.getLivro().getId()) {
                 raiz.setEsq(inserirRec(raiz.getEsq(), livro));
+
             // Se o ID do novo livro for maior que o ID do nó atual,
-            // chama recursivamente para a subárvore da direita
             } else if (livro.getId() > raiz.getLivro().getId()) {
                 raiz.setDir(inserirRec(raiz.getDir(), livro));
+                
             // Se o ID for igual ao do nó atual, não insere e avisa que já existe
             } else {
                 System.out.println("ID já existe!");
@@ -204,7 +207,7 @@ public class BST {
 
             inserir(new Livro(autor, id, titulo));
         }
-        System.out.println("37 pessoas inseridas automaticamente.");
+        System.out.println("37 livros inseridos automaticamente.");
 
     }
 }
